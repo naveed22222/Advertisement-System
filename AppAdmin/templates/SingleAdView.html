@@ -1,0 +1,95 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+    Ads System
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-xl-12 box-col-6 proorder-xl-3 xl-100">
+        <div class="card">
+            {% if single_ad_view|length == 0 %}
+                   <div class="card-body">
+                    <div class="pro-group pt-0 border-0">
+                        This Ad is Blocked
+                    </div>
+                   </div>
+            {% else %}
+                <div class="card-body">
+                    <div class="pro-group pt-0 border-0">
+                        <div class="product-page-details mt-0">
+                            <h3>{{ single_ad_view.name }}</h3>
+                            <div class="pro-review">
+                                <div class="d-flex">
+                                    {#                                <span>(250 review)</span>#}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-price">Visitors
+                            <b> {{ single_ad_view.views }}</b>
+                        </div>
+                        <ul class="product-color mb-2">
+                            <li class="bg-primary"></li>
+                            <li class="bg-secondary"></li>
+                            <li class="bg-success"></li>
+                            <li class="bg-danger"></li>
+                            <li class="bg-info"></li>
+                            <li class="bg-warning"></li>
+                        </ul>
+                        <a class="btn btn-secondary mt-0 mb-2" href="#"><i class="fa fa-shopping-cart me-2"></i>Buy Now</a>
+                    </div>
+
+                    <div class="pro-group">
+                        <p>It is a long established fact that a reader will be distracted by the readable content of a
+                            page
+                            when looking at its layout. The point of using Lorem Ipsum is that.</p>
+                    </div>
+                    <div class="pro-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td><b>Address &nbsp;: &nbsp;</b></td>
+                                        <td class="txt-success">{{ single_ad_view.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Start Date
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
+                                        </td>
+                                        <td>{{ single_ad_view.start_date }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td><b>Locations</b></td>
+                                        <td>{{ single_ad_view.location }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>End Date &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;</b>
+                                        </td>
+                                        <td>{{ single_ad_view.end_date }}                                </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pro-group pb-0 mt-2">
+                        <div class="pro-shop"><a class="btn btn-primary m-r-10" href="#">
+                            <i class="fa fa-shopping-basket me-2"></i>Add To Cart</a><a class="btn btn-danger" href="#">
+                            <i class="fa fa-heart me-2"></i>Add To WishList </a></div>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}
+
+

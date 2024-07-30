@@ -1,0 +1,101 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+   Ads System
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <form method="post" class="theme-form">
+                    {% csrf_token %}
+                <div class="row">
+                    <div class="col-10">
+                         <div class="card-header pb-0">
+                        <h5>Add New Location</h5>
+                    </div>
+                    </div>
+                    <div class="col-2">
+                         <div class="form-group w-100"></div>
+                        <a href="{% url 'CreateAd' %}" class="btn btn-primary">
+                            Create New Ad</a>
+                    </div>
+                </div>
+                    {% if messages %}
+                        <div class="alert alert-danger messages">
+
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="col-form-label pt-0">Location Name</label>
+                            <input class="form-control" id="name" type="text" name="name"
+                                   placeholder="Enter Location">
+                        </div>
+                           <div class="mb-3">
+                            <label class="col-form-label pt-0">Maximum Visitors</label>
+                            <input class="form-control" id="visitors" type="text" name="visitors"
+                                   placeholder="Enter Maximum Number of Visitors for this Location">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit">Add Location</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header btn-primary">
+                    <h5 class="text-white">Location Detail</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-lg table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Visitor</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in location %}
+                            <tr>
+                                <th class="text-center">{{ forloop.counter }}</th>
+                                <td class="text-center">{{ data.name }}</td>
+                                <td class="text-center">{{ data.visitors }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'DeleteLocation' data.id %}">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        setTimeout(fade_out, 3000);
+
+        function fade_out() {
+            $(".messages").fadeOut().empty();
+        }
+    </script>
+{% endblock %}
+

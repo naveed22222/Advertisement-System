@@ -1,0 +1,60 @@
+{#<html><body>#}
+{#<h1>Profiles</h1>#}
+{#<ul>#}
+{#    {% for profile in profiles %}#}
+{#    <li>{{ profile.name }}</li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{#</body></html>#}
+
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+   Ads System
+{% endblock %}
+{% block content %}
+
+  <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header btn-primary">
+                    <h5 class="text-white">Ads Detail</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-lg table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Start Date</th>
+                            <th class="text-center">End Date</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                         {% for data in response %}
+                            <tr>
+                                <th class="text-center">{{ forloop.counter }}</th>
+                                <td class="text-center">{{ data.name }}</td>
+                                <td class="text-center">{{ data.start_date }}</td>
+                                <td class="text-center">{{ data.end_date }}</td>
+                                <td class="text-center">{% if data.status == 'Active' %}<span class="badge badge-primary"> {{ data.status }}</span> {% else %}<span class="badge badge-danger"> {{ data.status }}</span> {% endif %}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'SingleAdView' data.id %}">
+                                       Edit,
+                                    </a>
+                                    <a href="{% url 'AdStatusView' data.id %}">
+                                      Change Status
+                                    </a>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+{% endblock %}

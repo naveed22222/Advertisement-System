@@ -1,0 +1,177 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+    Ads System
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="card-header pb-0">
+                                <h5>Create New Ad</h5>
+                            </div>
+                        </div>
+                        <div class="col-2">
+
+                            <div class="form-group w-100"></div>
+                            <a href="{% url 'Dashboard' %}" class="btn btn-primary">
+                                View Ads</a>
+                        </div>
+                    </div>
+                    <form method="post" id="AdForm">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {% if messages %}
+                                <div class="alert alert-primary messages">
+
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form theme-form">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label> <span>Ad Title*</span>
+                                                <span class="text-danger d-none float-md-left ps-lg-1"
+                                                      id="msg_name">Please Fill it.</span></label>
+                                            <input class="form-control" type="text" placeholder="Enter Ad Name"
+                                                   name="ad_name" id="ad_name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="mb-3">
+                                            <label><span>Start Date*</span>
+                                                <span class="text-danger d-none float-md-left ps-lg-1"
+                                                      id="msg_start_date">Please Fill it.</span></label>
+                                            <input class="form-control" type="date" placeholder="Start Date"
+                                                   name="start_date" id="start_date">
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="mb-3">
+                                            <label> <span>End Date* </span>
+                                                <span class="text-danger d-none float-md-left ps-lg-1"
+                                                      id="msg_end_date">Please Fill it.</span></label>
+                                            <input class="form-control" type="date" placeholder="End Date"
+                                                   name="end_date" id="end_date">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label> Address</label>
+                                            <input class="form-control" type="text" placeholder="Address"
+                                                   name="address">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label>Latitude</label>
+                                            <input class="form-control" type="text" placeholder="Latitude" name="lat">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label>Longitude</label>
+                                            <input class="form-control" type="text" placeholder="Latitude" name="lng">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+
+                                        <div class="mb-3">
+                                            <label><span> Locations*</span> <span
+                                                    class="text-danger d-none float-md-left ps-lg-1"
+                                                    id="msg_location">Please Fill it.</span></label>
+                                            <a href="{% url 'Location' %}" class="btn btn-xs btn-primary">Add
+                                                Location</a>
+
+                                            <select class="js-example-basic-multiple form-select" multiple="multiple"
+                                                    name="location" id="location">
+                                                {% for data in all_locations %}
+                                                    <option value="{{ data.id }}">{{ data.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <button class="btn btn-primary" type="button" id="submitBtn">Create Ad</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        // FORM VALIDATION
+        $("#submitBtn").click(function () {
+            let Status = 0;
+            let get_ad_name = $("#ad_name").val();
+            if (get_ad_name === "") {
+                $("#msg_name").removeClass("d-none");
+                Status = 1;
+            } else {
+
+                $("#msg_name").addClass("d-none");
+            }
+            let get_start_date = $("#start_date").val();
+            if (get_start_date === "") {
+                $("#msg_start_date").removeClass("d-none");
+                Status = 1;
+            } else {
+                $("#msg_start_date").addClass("d-none");
+            }
+
+            let get_end_date = $("#end_date").val();
+            if (get_end_date === "") {
+                $("#msg_end_date").removeClass("d-none");
+                Status = 1;
+            } else {
+                $("#msg_end_date").addClass("d-none");
+            }
+
+            let get_location = $("#location").val();
+            if (get_location.length === 0) {
+                $("#msg_location").removeClass("d-none");
+                Status = 1;
+            } else {
+                $("#msg_location").addClass("d-none");
+            }
+
+            if (Status === 0) {
+                $("#AdForm").submit(); // Submit the form
+            }
+        });
+
+
+        setTimeout(fade_out, 3000);
+
+        function fade_out() {
+            $(".messages").fadeOut().empty();
+        }
+    </script>
+{% endblock %}
+
+

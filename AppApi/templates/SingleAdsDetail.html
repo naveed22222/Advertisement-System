@@ -1,0 +1,26 @@
+{#{% extends "master.html" %}#}
+{#{% load static %}#}
+{% load rest_framework %}
+{##}
+{#{% block title %}#}
+{#   Ads System#}
+{#{% endblock %}#}
+{#{% block content %}#}
+{#    #}
+{#{% endblock %}#}
+
+<html>
+<body>
+
+<h1>Profile - {{ profile.name }}</h1>
+
+<form action="{% url 'SingleAdView' pk=profile.pk %}" method="POST">
+    {% csrf_token %}
+        {% render_form serializer %}
+{#    {% render_field serializer.name style=style %}#}
+{#    {% render_field serializer.start_date style=style %}#}
+    <input type="submit" value="Save">
+</form>
+
+</body>
+</html>
