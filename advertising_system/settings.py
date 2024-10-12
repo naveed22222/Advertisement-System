@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-f9^f64@69q@-aj1@f_(uba)o7e+lx%ikvbs3%g$3%w690kn*qf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,7 +51,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_SECONDS = 300
+SESSION_TIMEOUT_REDIRECT = '/AppLogin/Login/'
 
 ROOT_URLCONF = 'advertising_system.urls'
 
@@ -138,4 +142,3 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(PRODUCT_DIR, 'media')
 MEDIA_URL = '/media/'
-

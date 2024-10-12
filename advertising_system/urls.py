@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from AppLogin.views import *
 
 urlpatterns = [
+                  path('', LoginView, name='Login'),
                   path('admin/', admin.site.urls),
                   path('AppLogin/', include("AppLogin.urls")),
                   path('AppAdmin/', include("AppAdmin.urls")),
